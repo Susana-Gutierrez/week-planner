@@ -1,0 +1,108 @@
+
+h1 {
+  text-align: center;
+}
+
+body {
+  background-color: #f8f8f8;
+  font-family: 'Barlow', sans-serif;
+}
+
+textarea {
+  resize: none;
+  width: 90%;
+  height: 75px;
+  margin-top: 20px;
+  font-size: 0.7rem;
+  border: 1px solid black;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.container-add-entry {
+  padding-top: 10%;
+}
+
+.add-entry {
+  text-align: center;
+  border-color: black;
+  border-style: solid;
+  box-shadow: 2px 5px;
+  margin: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+  width: 200px;
+}
+
+.add-entry:hover {
+  background-color: cornflowerblue;
+}
+
+.pop-up {
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  font-size: 0.6rem;
+  padding-top: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 350px;
+  height: 230px;
+  background: gray;
+  background-color: white;
+  text-align: center;
+}
+
+.overlay {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.row-modal-select {
+  text-align: left;
+  padding-left: 5%;
+  margin-bottom: 1%;
+  padding-top: 2px;
+}
+
+#day-of-week {
+  margin-right: 15px;
+  font-size: 0.7rem;
+  border: 1px solid black;
+}
+
+#time {
+  font-size: 0.7rem;
+  border: 1px solid black;
+}
+
+.row-modal-button {
+  margin-right: 5%;
+  text-align: end;
+}
+
+.button-submit {
+  font-size: 0.7rem;
+  margin-top: 25px;
+  box-shadow: 2px 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .pop-up {
+    width: 600px;
+    height: 250px;
+  }
+}
