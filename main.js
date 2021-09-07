@@ -2,9 +2,9 @@
 /* exported data */
 
 const dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const time = ['12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM',
-  '6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM',
-  '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM'];
+const time = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00',
+  '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00',
+  '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
 
 const $addEntry = document.querySelector('.add-entry');
 const $addEntryModal = document.querySelector('.add-entry-modal');
@@ -13,19 +13,13 @@ const $buttonSubmit = document.querySelector('.button-submit');
 const $text = document.querySelector('.text');
 const $dayOfWeek = document.querySelector('#day-of-week');
 const $time = document.querySelector('#time');
+const $dayList = document.querySelector('.day-list');
+const $table = document.querySelector('table');
+const $scheduledDay = document.querySelector('.scheduled-day');
 
 function handleClickAddEntry(event) {
   $addEntryModal.className = 'add-entry-modal';
   $overlay.className = 'overlay';
-
-  for (let i = 0; i < dayOfWeek.length; i++) {
-    newOptionWeekOfDayDOM(i);
-  }
-
-  for (let i = 0; i < time.length; i++) {
-    newOptionTimeDOM(i);
-  }
-
 }
 
 $addEntry.addEventListener('click', handleClickAddEntry);
@@ -44,6 +38,10 @@ function handleClickSubmit(event) {
     data.entries.push(entry);
     data.nextEntryId = data.nextEntryId + 1;
   }
+
+  document.querySelector('tbody').innerHTML = '';
+
+  orderData($dayOfWeek.value);
 
   $overlay.className = 'hidden';
   $addEntryModal.className = 'hidden';
@@ -76,3 +74,71 @@ function handleClickTextArea(event) {
 }
 
 $text.addEventListener('click', handleClickTextArea);
+
+function newTableDom(time, day) {
+
+  for (let i = 0; i < data.entries.length; i++) {
+    if ((data.entries[i].dayOfWeek === day) && (data.entries[i].time === time)) {
+      const elementTr = document.createElement('tr');
+      const elementTdTime = document.createElement('td');
+      const elementTdDescription = document.createElement('td');
+      elementTdTime.textContent = data.entries[i].time;
+      elementTdDescription.textContent = data.entries[i].description;
+      document.querySelector('tbody').appendChild(elementTr);
+      elementTr.appendChild(elementTdTime);
+      elementTr.appendChild(elementTdDescription);
+    }
+  }
+}
+
+function handleClickDayList(event) {
+  document.querySelector('tbody').innerHTML = '';
+  var dataView = event.target.getAttribute('data-view');
+  if (dataView !== null) {
+    $scheduledDay.textContent = dataView;
+  }
+  orderData(dataView);
+}
+
+$dayList.addEventListener('click', handleClickDayList);
+
+function orderData(dataView) {
+
+  var scheduled = [];
+
+  for (let i = 0; i < data.entries.length; i++) {
+    var dayOfWeekSelected = data.entries[i].dayOfWeek;
+    if (dayOfWeekSelected === dataView) {
+      scheduled.push(data.entries[i]);
+    }
+  }
+
+  if (scheduled.length === 0) {
+    $table.className = 'hidden';
+  } else {
+    $table.className = '';
+    var scheduleTime = [];
+    for (let j = 0; j < scheduled.length; j++) {
+      scheduleTime.push(scheduled[j].time);
+    }
+
+    var orderedScheduledTime = scheduleTime.sort();
+    for (let i = 0; i < orderedScheduledTime.length; i++) {
+      newTableDom(orderedScheduledTime[i], dataView);
+    }
+  }
+}
+
+function handleDOMContentLoaded(event) {
+  for (let i = 0; i < dayOfWeek.length; i++) {
+    newOptionWeekOfDayDOM(i);
+  }
+
+  for (let i = 0; i < time.length; i++) {
+    newOptionTimeDOM(i);
+  }
+
+  orderData('Monday');
+}
+
+window.addEventListener('DOMContentLoaded', handleDOMContentLoaded);
