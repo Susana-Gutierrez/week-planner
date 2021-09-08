@@ -16,6 +16,8 @@ const $time = document.querySelector('#time');
 const $dayList = document.querySelector('.day-list');
 const $table = document.querySelector('table');
 const $scheduledDay = document.querySelector('.scheduled-day');
+const $tableOptions = document.querySelector('.table-options');
+const $modalTitle = document.querySelector('.modal-title');
 
 function handleClickAddEntry(event) {
   $addEntryModal.className = 'add-entry-modal';
@@ -27,27 +29,40 @@ $addEntry.addEventListener('click', handleClickAddEntry);
 function handleClickSubmit(event) {
 
   if (($dayOfWeek.value !== 'dayofweek') && ($time.value !== 'time')) {
+    if (data.editing !== null) {
+      for (let i = 0; i < data.entries.length; i++) {
+        if (data.editing.entryId === data.entries[i].entryId) {
+          data.entries[i].dayOfWeek = $dayOfWeek.value;
+          data.entries[i].time = $time.value;
+          data.entries[i].description = $text.value;
+        }
+      }
 
-    const entry = {
-      dayOfWeek: $dayOfWeek.value,
-      time: $time.value,
-      description: $text.value,
-      entryId: data.nextEntryId
-    };
+    } else {
 
-    data.entries.push(entry);
-    data.nextEntryId = data.nextEntryId + 1;
+      const entry = {
+        dayOfWeek: $dayOfWeek.value,
+        time: $time.value,
+        description: $text.value,
+        entryId: data.nextEntryId
+      };
+
+      data.entries.push(entry);
+      data.nextEntryId = data.nextEntryId + 1;
+    }
   }
 
   document.querySelector('tbody').innerHTML = '';
 
   orderData($dayOfWeek.value);
 
+  $scheduledDay.textContent = $dayOfWeek.value;
   $overlay.className = 'hidden';
   $addEntryModal.className = 'hidden';
   $dayOfWeek.value = 'dayofweek';
   $time.value = 'time';
   $text.value = 'Description';
+  data.editing = null;
 
 }
 
@@ -82,11 +97,19 @@ function newTableDom(time, day) {
       const elementTr = document.createElement('tr');
       const elementTdTime = document.createElement('td');
       const elementTdDescription = document.createElement('td');
+
+      const elementButton = document.createElement('button');
+      elementButton.setAttribute('class', 'update');
+      elementButton.setAttribute('data-entry-id', data.entries[i].entryId);
+
       elementTdTime.textContent = data.entries[i].time;
       elementTdDescription.textContent = data.entries[i].description;
+      elementButton.textContent = 'Update';
+
       document.querySelector('tbody').appendChild(elementTr);
       elementTr.appendChild(elementTdTime);
       elementTr.appendChild(elementTdDescription);
+      elementTdDescription.appendChild(elementButton);
     }
   }
 }
@@ -142,3 +165,22 @@ function handleDOMContentLoaded(event) {
 }
 
 window.addEventListener('DOMContentLoaded', handleDOMContentLoaded);
+
+function handleClickTableOptions(events) {
+  if (event.target.tagName === 'BUTTON') {
+    var index = event.target.getAttribute('data-entry-id');
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === parseInt(index)) {
+        data.editing = data.entries[i];
+        $modalTitle.textContent = 'Update Entry';
+        $addEntryModal.className = 'add-entry-modal';
+        $overlay.className = 'overlay';
+        $dayOfWeek.value = data.entries[i].dayOfWeek;
+        $time.value = data.entries[i].time;
+        $text.value = data.entries[i].description;
+      }
+    }
+  }
+}
+
+$tableOptions.addEventListener('click', handleClickTableOptions);

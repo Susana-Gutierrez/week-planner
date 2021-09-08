@@ -40,8 +40,6 @@ textarea {
   flex-basis: calc(100% / 2);
   text-align: center;
   margin-top: 25px;
-
-  /* margin: 15px; */
 }
 
 .day {
@@ -74,7 +72,7 @@ textarea {
 }
 
 .add-entry:hover {
-  background-color: cornflowerblue;
+  background-color: rgb(157, 186, 240);
 }
 
 .pop-up {
@@ -131,11 +129,19 @@ textarea {
   box-shadow: 2px 5px;
 }
 
-/*
-tbody {
-  border: 1px solid black;
+.update {
+  float: right;
+  margin-right: 20%;
+  box-shadow: 2px 5px;
+  border-radius: 0;
+  background-color: rgb(56, 119, 236);
+  color: white;
 }
-*/
+
+.update:hover {
+  background-color: rgb(157, 186, 240);
+  color: black;
+}
 
 tr {
   border: none;
@@ -149,6 +155,7 @@ td,
 th {
   border-right: solid 1.5px black;
   border-left: solid 1.5px black;
+  height: 35px;
 }
 
 table {
@@ -172,7 +179,5 @@ tr:nth-child(even) {
   .column-one-seventh {
     flex-basis: calc(100% / 7);
     margin-top: 25px;
-
-    /* margin: 15px; */
   }
 }
