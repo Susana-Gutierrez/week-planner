@@ -23,11 +23,40 @@ textarea {
 
 .container {
   display: flex;
+  padding-left: 10%;
+  padding-right: 10%;
   justify-content: center;
 }
 
+.day-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 10%;
+  padding-right: 10%;
+  justify-content: center;
+}
+
+.column-one-half {
+  flex-basis: calc(100% / 2);
+  text-align: center;
+  margin-top: 25px;
+}
+
+.day {
+  border-color: black;
+  border-style: solid;
+  text-align: center;
+  display: inline-block;
+  padding-top: 45px;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 120px;
+  width: 120px;
+  cursor: pointer;
+}
+
 .container-add-entry {
-  padding-top: 10%;
+  padding-top: 1%;
 }
 
 .add-entry {
@@ -43,7 +72,7 @@ textarea {
 }
 
 .add-entry:hover {
-  background-color: cornflowerblue;
+  background-color: rgb(157, 186, 240);
 }
 
 .pop-up {
@@ -100,9 +129,55 @@ textarea {
   box-shadow: 2px 5px;
 }
 
+.update {
+  float: right;
+  margin-right: 20%;
+  box-shadow: 2px 5px;
+  border-radius: 0;
+  background-color: rgb(56, 119, 236);
+  color: white;
+}
+
+.update:hover {
+  background-color: rgb(157, 186, 240);
+  color: black;
+}
+
+tr {
+  border: none;
+}
+
+th {
+  background-color: rgb(194, 194, 194);
+}
+
+td,
+th {
+  border-right: solid 1.5px black;
+  border-left: solid 1.5px black;
+  height: 35px;
+}
+
+table {
+  width: 80%;
+  text-align: left;
+  border-top: 1.5px solid black;
+  border-bottom: 1.5px solid black;
+  border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(230, 230, 230);
+}
+
 @media screen and (min-width: 768px) {
   .pop-up {
     width: 600px;
     height: 250px;
+  }
+
+  .column-one-seventh {
+    flex-basis: calc(100% / 7);
+    margin-top: 25px;
   }
 }

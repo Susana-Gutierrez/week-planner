@@ -9,6 +9,32 @@
 </head>
 <body>
   <h1>Weekly Planner</h1>
+
+<div class="day-list">
+    <div class="column-one-half column-one-seventh">
+      <div class="day" data-view="Sunday">Sunday</div>
+    </div>
+    <div class="column-one-half column-one-seventh">
+      <div class="day" data-view="Monday">Monday</div>
+    </div>
+    <div class="column-one-half column-one-seventh">
+      <div class="day" data-view="Tuesday">Tuesday</div>
+    </div>
+    <div class="column-one-half column-one-seventh">
+      <div class="day" data-view="Wednesday">Wednesday</div>
+    </div>
+    <div class="column-one-half column-one-seventh">
+      <div class="day" data-view="Thursday">Thursday</div>
+    </div>
+    <div class="column-one-half column-one-seventh">
+      <div class="day" data-view="Friday">Friday</div>
+    </div>
+    <div class="column-one-half column-one-seventh">
+      <div class="day" data-view="Saturday">Saturday</div>
+    </div>
+  </div>
+
+
   <div class="container"><div class="overlay hidden"></div>
   </div>
   <div class="container">
@@ -19,7 +45,7 @@
 
   <div class="add-entry-modal hidden">
     <div class="pop-up">
-      <h2>Add Entry</h2>
+      <h2 class="modal-title">Add Entry</h2>
 
       <div class="row-modal-select">
         <select id="day-of-week" name="day-of-week">
@@ -39,6 +65,22 @@
     </div>
   </div>
 
+  <div class="container">
+    <h2 class="schedule-events-title">Scheduled Events for <span class="scheduled-day">Monday</span></h2>
+  </div>
+
+  <div class="container">
+    <table class="hidden">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody class="table-options">
+      </tbody>
+    </table>
+  </div>
 
   <script src="data.js"></script>
   <script src="main.js"></script>
