@@ -19,12 +19,16 @@ const $scheduledDay = document.querySelector('.scheduled-day');
 const $tableOptions = document.querySelector('.table-options');
 const $modalTitle = document.querySelector('.modal-title');
 
+/** Add entry  **/
+
 function handleClickAddEntry(event) {
   $addEntryModal.className = 'add-entry-modal';
   $overlay.className = 'overlay';
 }
 
 $addEntry.addEventListener('click', handleClickAddEntry);
+
+/** Submit new entry / update new entry */
 
 function handleClickSubmit(event) {
 
@@ -68,12 +72,16 @@ function handleClickSubmit(event) {
 
 $buttonSubmit.addEventListener('click', handleClickSubmit);
 
+/** Select day of week **/
+
 function newOptionWeekOfDayDOM(number) {
   const elementOption = document.createElement('option');
   elementOption.value = dayOfWeek[number];
   elementOption.textContent = dayOfWeek[number];
   document.querySelector('#day-of-week').appendChild(elementOption);
 }
+
+/** Select  time **/
 
 function newOptionTimeDOM(number) {
   const elementOption = document.createElement('option');
@@ -82,6 +90,8 @@ function newOptionTimeDOM(number) {
   document.querySelector('#time').appendChild(elementOption);
 }
 
+/** Clean text area **/
+
 function handleClickTextArea(event) {
   if ($text.value === 'Description') {
     $text.value = '';
@@ -89,6 +99,8 @@ function handleClickTextArea(event) {
 }
 
 $text.addEventListener('click', handleClickTextArea);
+
+/** Create table  **/
 
 function newTableDom(time, day) {
 
@@ -114,6 +126,8 @@ function newTableDom(time, day) {
   }
 }
 
+/** Select day button **/
+
 function handleClickDayList(event) {
   document.querySelector('tbody').innerHTML = '';
   var dataView = event.target.getAttribute('data-view');
@@ -124,6 +138,8 @@ function handleClickDayList(event) {
 }
 
 $dayList.addEventListener('click', handleClickDayList);
+
+/** Order entries by time **/
 
 function orderData(dataView) {
 
@@ -165,6 +181,8 @@ function handleDOMContentLoaded(event) {
 }
 
 window.addEventListener('DOMContentLoaded', handleDOMContentLoaded);
+
+/** Click update button **/
 
 function handleClickTableOptions(events) {
   if (event.target.tagName === 'BUTTON') {
