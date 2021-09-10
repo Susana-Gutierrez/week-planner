@@ -18,6 +18,9 @@ const $table = document.querySelector('table');
 const $scheduledDay = document.querySelector('.scheduled-day');
 const $tableOptions = document.querySelector('.table-options');
 const $modalTitle = document.querySelector('.modal-title');
+const $deleteEntryModal = document.querySelector('.delete-entry-modal');
+const $buttonDeleteNo = document.querySelector('.button-delete-no');
+const $buttonDeleteYes = document.querySelector('.button-delete-yes');
 
 /** Add entry  **/
 
@@ -114,14 +117,22 @@ function newTableDom(time, day) {
       elementButton.setAttribute('class', 'update');
       elementButton.setAttribute('data-entry-id', data.entries[i].entryId);
 
+      const elementButtonDelete = document.createElement('button');
+      elementButtonDelete.setAttribute('class', 'delete');
+      elementButtonDelete.setAttribute('data-entry-id', data.entries[i].entryId);
+
       elementTdTime.textContent = data.entries[i].time;
       elementTdDescription.textContent = data.entries[i].description;
       elementButton.textContent = 'Update';
+      elementButtonDelete.textContent = 'Delete';
 
       document.querySelector('tbody').appendChild(elementTr);
       elementTr.appendChild(elementTdTime);
       elementTr.appendChild(elementTdDescription);
+
+      elementTdDescription.appendChild(elementButtonDelete);
       elementTdDescription.appendChild(elementButton);
+
     }
   }
 }
@@ -130,7 +141,7 @@ function newTableDom(time, day) {
 
 function handleClickDayList(event) {
   document.querySelector('tbody').innerHTML = '';
-  var dataView = event.target.getAttribute('data-view');
+  const dataView = event.target.getAttribute('data-view');
   if (dataView !== null) {
     $scheduledDay.textContent = dataView;
   }
@@ -143,10 +154,10 @@ $dayList.addEventListener('click', handleClickDayList);
 
 function orderData(dataView) {
 
-  var scheduled = [];
+  const scheduled = [];
 
   for (let i = 0; i < data.entries.length; i++) {
-    var dayOfWeekSelected = data.entries[i].dayOfWeek;
+    const dayOfWeekSelected = data.entries[i].dayOfWeek;
     if (dayOfWeekSelected === dataView) {
       scheduled.push(data.entries[i]);
     }
@@ -156,12 +167,12 @@ function orderData(dataView) {
     $table.className = 'hidden';
   } else {
     $table.className = '';
-    var scheduleTime = [];
+    const scheduleTime = [];
     for (let j = 0; j < scheduled.length; j++) {
       scheduleTime.push(scheduled[j].time);
     }
 
-    var orderedScheduledTime = scheduleTime.sort();
+    const orderedScheduledTime = scheduleTime.sort();
     for (let i = 0; i < orderedScheduledTime.length; i++) {
       newTableDom(orderedScheduledTime[i], dataView);
     }
@@ -186,19 +197,55 @@ window.addEventListener('DOMContentLoaded', handleDOMContentLoaded);
 
 function handleClickTableOptions(events) {
   if (event.target.tagName === 'BUTTON') {
-    var index = event.target.getAttribute('data-entry-id');
+    const classElement = event.target.getAttribute('class');
+    const index = event.target.getAttribute('data-entry-id');
+
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === parseInt(index)) {
         data.editing = data.entries[i];
-        $modalTitle.textContent = 'Update Entry';
-        $addEntryModal.className = 'add-entry-modal';
-        $overlay.className = 'overlay';
-        $dayOfWeek.value = data.entries[i].dayOfWeek;
-        $time.value = data.entries[i].time;
-        $text.value = data.entries[i].description;
       }
+    }
+
+    if (classElement === 'update') {
+      $modalTitle.textContent = 'Update Entry';
+      $addEntryModal.className = 'add-entry-modal';
+      $overlay.className = 'overlay';
+      $dayOfWeek.value = data.editing.dayOfWeek;
+      $time.value = data.editing.time;
+      $text.value = data.editing.description;
+    } else if (classElement === 'delete') {
+      $deleteEntryModal.className = 'delete-entry-modal';
+      $overlay.className = 'overlay';
     }
   }
 }
 
 $tableOptions.addEventListener('click', handleClickTableOptions);
+
+/** * Delete buttons **/
+
+function handleClickButtonDeleteNo(events) {
+  $deleteEntryModal.className = 'hidden';
+  $overlay.className = 'hidden';
+  data.editing = null;
+}
+
+$buttonDeleteNo.addEventListener('click', handleClickButtonDeleteNo);
+
+function handleClickButtonDeleteYes(events) {
+
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.editing.entryId === data.entries[i].entryId) {
+      data.entries.splice(i, 1);
+    }
+  }
+
+  document.querySelector('tbody').innerHTML = '';
+  orderData(data.editing.dayOfWeek);
+
+  $deleteEntryModal.className = 'hidden';
+  $overlay.className = 'hidden';
+  data.editing = null;
+}
+
+$buttonDeleteYes.addEventListener('click', handleClickButtonDeleteYes);
