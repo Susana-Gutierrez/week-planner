@@ -127,11 +127,11 @@ textarea {
   font-size: 0.7rem;
   margin-top: 25px;
   box-shadow: 2px 5px;
+  background-color: white;
 }
 
 .update {
   float: right;
-  margin-right: 20%;
   box-shadow: 2px 5px;
   border-radius: 0;
   background-color: rgb(56, 119, 236);
@@ -141,6 +141,49 @@ textarea {
 .update:hover {
   background-color: rgb(157, 186, 240);
   color: black;
+}
+
+.delete {
+  float: right;
+  margin-right: 5%;
+  box-shadow: 2px 5px;
+  border-radius: 0;
+  background-color: red;
+  color: white;
+}
+
+.delete:hover {
+  background-color: rgb(157, 186, 240);
+  color: black;
+}
+
+.modal-title-delete {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+.container-text-delete {
+  font-size: 1rem;
+}
+
+.row-modal-button-delete {
+  margin-top: 50px;
+}
+
+.button-delete-yes,
+.button-delete-no {
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: white;
+  font-size: 0.7rem;
+  box-shadow: 2px 5px;
+  width: 40px;
+}
+
+.button-delete-yes:hover,
+.button-delete-no:hover,
+.button-submit:hover {
+  background-color: rgb(157, 186, 240);
 }
 
 tr {
@@ -155,6 +198,7 @@ td,
 th {
   border-right: solid 1.5px black;
   border-left: solid 1.5px black;
+  width: 35px;
   height: 35px;
 }
 
@@ -164,6 +208,7 @@ table {
   border-top: 1.5px solid black;
   border-bottom: 1.5px solid black;
   border-collapse: collapse;
+  font-size: 0.9rem;
 }
 
 tr:nth-child(even) {
@@ -180,4 +225,5 @@ tr:nth-child(even) {
     flex-basis: calc(100% / 7);
     margin-top: 25px;
   }
+}
 }
